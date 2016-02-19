@@ -16,15 +16,18 @@ Public Class Form1
     Dim word As String
     Dim letterpos As Integer
 
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Randomize()
 
-        accept = MsgBox("Accept?", 4, "Accept")
-        If accept = 6 Then
-            Me.Show()
-        Else
-            End
-        End If
+        'accept = MsgBox("Accept?", 4, "Accept")
+        'If accept = 6 Then
+        '    Me.Show()
+        'Else
+        '    End
+        'End If
+
+
         buttonpoint.X = 535
         buttonpoint.Y = 65
         'Define buttons in button array
@@ -63,8 +66,14 @@ Public Class Form1
         space.Text = "Space"
         AddHandler space.Click, AddressOf Clicked
         Me.Controls.Add(space)
+        genWord()
 
+    End Sub
 
+    Private Sub genWord()
+        guesses = ""
+        letterpos = 0
+        Label3.Text = guesses
         'Word Gen
         Words(1) = "HI"
         Words(2) = "BYE"
@@ -72,44 +81,41 @@ Public Class Form1
         Words(4) = "NO"
         Words(5) = "YES"
         wordnum = 5 * Rnd()
-        word = Words(wordnum)
+        word = UCase(Words(wordnum))
         lblWord.Text = word
-
         For x = 1 To Len(word)
-            Mid(lblWord.Text, x, 1) = "X"
+            Mid(lblWord.Text, x, 1) = "?"
         Next
-
-
-
     End Sub
 
     Private Sub Clicked(sender As System.Object, e As System.EventArgs)
         guesses = guesses & sender.text
         guessletter = sender.text
         If word.Contains(guessletter) = False Then
-            Label3.Text = Label3.Text & guessletter
+            If Label3.Text.Contains(guessletter) Then
+            Else
+                Label3.Text &= guessletter
+            End If
         Else
+            letterpos = 0
             Do While InStr(letterpos + 1, word, guessletter) > 0
                 letterpos = InStr(letterpos + 1, word, guessletter)
                 Mid(lblWord.Text, letterpos, 1) = guessletter
             Loop
         End If
-        If lblWord.Text.Contains("X") Then
+        If lblWord.Text.Contains("?") Then
         Else MsgBox("You win!")
+            If Len(Label3.Text) = 0 Then
+                Points += 1000
+            ElseIf Len(Label3.Text) <= 5
+                Points += 750
+            ElseIf Len(Label3.Text) <= 10
+                Points += 500
+            Else MsgBox("You lose!")
+            End If
+            lblPoint.Text = Points
+            genWord()
         End If
-
-        If Len(Label3.Text) = 0 Then
-            Points += 1000
-        ElseIf Len(Label3.Text) <= 5
-            Points += 750
-        ElseIf Len(Label3.Text) <= 10
-            Points += 500
-        ElseIf Len(Label3.Text) <= 20
-            Points += 200
-        ElseIf Len(Label3.Text) <= 25
-            Points += 100
-        End If
-        lblPoint.Text = Points
     End Sub
 
     Private Sub btnKeyboard_Click(sender As Object, e As EventArgs) Handles btnKeyboard.Click
@@ -122,5 +128,37 @@ Public Class Form1
         Me.Width = 544
         sender.hide
         btnKeyboard.Show()
+
+    End Sub
+
+    Private Sub Form1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Me.KeyPress
+        guesses = guesses & UCase(e.KeyChar)
+        guessletter = UCase(e.KeyChar)
+        If word.Contains(guessletter) = False Then
+            If Label3.Text.Contains(guessletter) Then
+            Else
+                Label3.Text &= guessletter
+            End If
+        Else
+            letterpos = 0
+            Do While InStr(letterpos + 1, word, guessletter) > 0
+                letterpos = InStr(letterpos + 1, word, guessletter)
+                MsgBox(letterpos)
+                Mid(lblWord.Text, letterpos, 1) = guessletter
+            Loop
+        End If
+        If lblWord.Text.Contains("?") Then
+        Else MsgBox("You win!")
+            If Len(Label3.Text) = 0 Then
+                Points += 1000
+            ElseIf Len(Label3.Text) <= 5
+                Points += 750
+            ElseIf Len(Label3.Text) <= 10
+                Points += 500
+            Else MsgBox("You lose!")
+            End If
+            lblPoint.Text = Points
+            genWord()
+        End If
     End Sub
 End Class

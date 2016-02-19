@@ -116,6 +116,7 @@ Partial Class Form1
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.btnHKeyboard)
         Me.Controls.Add(Me.btnKeyboard)
+        Me.KeyPreview = True
         Me.Name = "Form1"
         Me.Text = "Form1"
         Me.ResumeLayout(False)
