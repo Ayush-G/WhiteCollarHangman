@@ -26,7 +26,10 @@ Partial Class Form1
         Me.btnHKeyboard = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Word = New System.Windows.Forms.Label()
+        Me.lblWord = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.lblPoint = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'btnKeyboard
@@ -65,21 +68,50 @@ Partial Class Form1
         Me.Label2.Size = New System.Drawing.Size(0, 13)
         Me.Label2.TabIndex = 3
         '
-        'Word
+        'lblWord
         '
-        Me.Word.AutoSize = True
-        Me.Word.Location = New System.Drawing.Point(105, 259)
-        Me.Word.Name = "Word"
-        Me.Word.Size = New System.Drawing.Size(39, 13)
-        Me.Word.TabIndex = 4
-        Me.Word.Text = "Label3"
+        Me.lblWord.AutoSize = True
+        Me.lblWord.Location = New System.Drawing.Point(105, 259)
+        Me.lblWord.Name = "lblWord"
+        Me.lblWord.Size = New System.Drawing.Size(39, 13)
+        Me.lblWord.TabIndex = 4
+        Me.lblWord.Text = "Label3"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(112, 27)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(0, 13)
+        Me.Label3.TabIndex = 5
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(21, 42)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(39, 13)
+        Me.Label4.TabIndex = 6
+        Me.Label4.Text = "Points:"
+        '
+        'lblPoint
+        '
+        Me.lblPoint.AutoSize = True
+        Me.lblPoint.Location = New System.Drawing.Point(66, 42)
+        Me.lblPoint.Name = "lblPoint"
+        Me.lblPoint.Size = New System.Drawing.Size(13, 13)
+        Me.lblPoint.TabIndex = 7
+        Me.lblPoint.Text = "0"
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(944, 542)
-        Me.Controls.Add(Me.Word)
+        Me.Controls.Add(Me.lblPoint)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.lblWord)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.btnHKeyboard)
@@ -95,5 +127,8 @@ Partial Class Form1
     Friend WithEvents btnHKeyboard As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents Word As Label
+    Friend WithEvents lblWord As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents lblPoint As Label
 End Class

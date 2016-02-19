@@ -1,4 +1,7 @@
-﻿Public Class Form1
+﻿Public Module GlobalVariables
+    Public Points As Integer
+End Module
+Public Class Form1
     Public letters(25) As Button
     Dim accept As Integer
     Dim space As Button
@@ -8,10 +11,14 @@
     Dim wordnum As Integer
     Dim guessletter As String
     Dim guesses As String
-    Dim strWord As String
+    Dim Words(5) As String
     Dim correct As Boolean
+    Dim word As String
+    Dim letterpos As Integer
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Randomize()
+
         accept = MsgBox("Accept?", 4, "Accept")
         If accept = 6 Then
             Me.Show()
@@ -59,43 +66,50 @@
 
 
         'Word Gen
+        Words(1) = "HI"
+        Words(2) = "BYE"
+        Words(3) = "HELLO"
+        Words(4) = "NO"
+        Words(5) = "YES"
         wordnum = 5 * Rnd()
-        If wordnum = 0 Then
-            strWord = "Hello"
-        ElseIf wordnum = 1
-            strWord = "Hi"
-        ElseIf wordnum = 2
-            strWord = "Yes"
-        ElseIf wordnum = 3
-            strWord = "No"
-        ElseIf wordnum = 4
-            strWord = "Bye"
-        Else strWord = "Goodbye"
-        End If
-        Word.Text = strWord
+        word = Words(wordnum)
+        lblWord.Text = word
+
+        For x = 1 To Len(word)
+            Mid(lblWord.Text, x, 1) = "X"
+        Next
+
+
 
     End Sub
 
     Private Sub Clicked(sender As System.Object, e As System.EventArgs)
         guesses = guesses & sender.text
         guessletter = sender.text
-        For x = 1 To Len(strWord)
-            If UCase(Mid(strWord, x, 1)) Like sender.text Then
-                MsgBox("Yes")
-            End If
-        Next
-        sender.visible = False
-        For x = 1 To Len(strWord)
-            For y = 1 To Len(guesses)
-                If Mid(strWord, x, 1) Like Mid(guesses, y, 1) Then
-                    correct = True
-                Else correct = False
-                End If
-            Next
-        Next
-        If correct = True Then
-            MsgBox("Congrats, you win!")
+        If word.Contains(guessletter) = False Then
+            Label3.Text = Label3.Text & guessletter
+        Else
+            Do While InStr(letterpos + 1, word, guessletter) > 0
+                letterpos = InStr(letterpos + 1, word, guessletter)
+                Mid(lblWord.Text, letterpos, 1) = guessletter
+            Loop
         End If
+        If lblWord.Text.Contains("X") Then
+        Else MsgBox("You win!")
+        End If
+
+        If Len(Label3.Text) = 0 Then
+            Points += 1000
+        ElseIf Len(Label3.Text) <= 5
+            Points += 750
+        ElseIf Len(Label3.Text) <= 10
+            Points += 500
+        ElseIf Len(Label3.Text) <= 20
+            Points += 200
+        ElseIf Len(Label3.Text) <= 25
+            Points += 100
+        End If
+        lblPoint.Text = Points
     End Sub
 
     Private Sub btnKeyboard_Click(sender As Object, e As EventArgs) Handles btnKeyboard.Click
